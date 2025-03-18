@@ -1,5 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import './index.css'
+
+
 
 function App() {
   return (
@@ -13,7 +16,9 @@ function App() {
 
 function Header() {
   const style={
-    color:"red"
+    color:"red",
+    fontsize:"40 px",
+    texttranform:"uppercase"
   };
 
   return <h1 style={style}>Header</h1>;
@@ -56,7 +61,7 @@ function ProducList() {
 
   return (
     <>
-      <h2>Product List</h2>
+      <h2 className='title' >Product List</h2>
       {
         items.length > 0 ? (
           <div id='product-list'>
