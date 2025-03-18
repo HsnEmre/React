@@ -1,129 +1,115 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-
-function App(){
-  return(
-
-    // Fragment
-
-  <> 
-
-    <Header/>
-    <ProductList/>
-    <Footer/>
-  </>);
- 
-}
-
-
-
-function Header(){
-  return (<h1>Header</h1>);
-}
-
-function ProductList(){
-  // const imageUrl="/img/1.jpg";
-  // const title ="Ace";
-  // const description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam, fuga!";
-  // const price=10000;
-
-const items=
-[
-  {
-    "image":"1.jpg",
-  "title":"Ace",
-  "description":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam, fuga!",
-  "price":"10000"
-  },
-  {
-    "image":"2.jpg",
-  "title":"Luffy",
-  "description":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam, fuga!",
-  "price":"10000"
-  },
-  {
-    "image":"3.jpg",
-  "title":"luffy",
-  "description":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam, fuga!",
-  "price":"10000"
-  },
-]
-
-
-const product_item={
-  "image":"1.jpg",
-  "title":"Ace",
-  "description":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam, fuga!",
-  "price":"10000"
-};
-
-return (
-<>
-  <h2>Product List</h2>
-
-  {
-        items.map((item,index) => (
-      <Product
-      key={ index }
-      image={items[0].image}
-      title={items[0].title}
-      description={items[0].title}
-      price={items[0].price}/>
-      ))  
-
-  } 
- 
-  
-  
-</>
-
-)
-
-
-}
-
-
-function Product(props){
-  console.log(props);
+function App() {
   return (
-
-  
-
-
-
-  <div>
-    <img src={"/img/"+ props.image } alt="" />
-    <h2>{ props.title }</h2>
-    <p>{props.description}</p>
-    {
-    /* <img src="/2.jpg" alt="" />
-    <h2>luffy</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, exercitationem!</p>
-    <img src="/3.jpg" alt="" />
-    <h2>luffy2</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, voluptate.</p> */}
-  </div>
-);
-
+    <>
+      <Header />
+      <ProducList />
+      <Footer />
+    </>
+  );
 }
-  
 
-function Footer(){
+function Header() {
+  const style={
+    color:"red"
+  };
 
-  const Hour=new Date().getHours();
-  console.log(Hour);
+  return <h1 style={style}>Header</h1>;
+}
 
-  const OpenHour=10;
-  const closeHour=20;
-  const isopen=Hour >= OpenHour && Hour <= closeHour;
-  console.log(isopen);
+function ProducList() {
+  const items = [
+    {
+      "image" :  "1.jpg",
+      "title" : "IPhone 16",
+      "description" : "Lorem ipsum dolor sit amet.",
+      "price": 80000,
+      "is_active": true
+    },
+    {
+      "image" :  "2.jpg",
+      "title" : "IPhone 17",
+      "description" : "Lorem ipsum dolor sit amet.",
+      "price": 90000,
+      "is_active": true
+    },
+    {
+      "image" :  "3.jpg",
+      "title" : "IPhone 18",
+      "description" : "Lorem ipsum dolor sit amet.",
+      "price": 100000,
+      "is_active": true
+    }
+    ,
+    {
+      "image" :  "4.jpg",
+      "title" : "IPhone 19",
+      "description" : "Lorem ipsum dolor sit amet.",
+      "price": 110000,
+      "is_active": true
+    }
+  ];
 
+  // const items = [];
+
+  return (
+    <>
+      <h2>Product List</h2>
+      {
+        items.length > 0 ? (
+          <div id='product-list'>
+          {
+            items.map((item, index) => (
+              <Product key={ index } productObj = { item } />
+            ))
+          }  
+        </div>
+        ) : (
+          <p>Şu anda satışta olan ürünümüz yok.</p>
+        )
+      }
+    </>
+  );  
+}
+
+function Product({ productObj }) {
+
+  if(!productObj.is_active) return null;
+
+  return (
+    <div>
+      <img src={ "/img/" + productObj.image } alt="" />
+      <h2>{ productObj.title }</h2>
+      <p>{ productObj.description }</p>
+      <span>{ productObj.price } TL</span>
+    </div>
+  );
+}
+
+function Footer() {
+  const hour = new Date().getHours();
+  const openHour = 8;
+  const closeHour = 20;
+  const isOpen = hour >= openHour && hour <= closeHour;
+
+  return (
+    <footer>
+      {
+        isOpen ? (
+          <p>Akşam {closeHour}' e kadar sipariş verebilirsiniz.</p>
+        ) : 
+        (
+          <p>Şu an kapalıyız. Açılış saatimiz {openHour}.</p>
+        )
+      }
+    </footer>
+  );
 }
 
 createRoot(document.getElementById('root')).render(
-
   <StrictMode>
-    <App/>
+    <App />
   </StrictMode>,
 )
