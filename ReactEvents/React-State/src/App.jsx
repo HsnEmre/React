@@ -1,70 +1,56 @@
+import { useState } from 'react';
 import { sculptureList } from './data.js';
-//#region 
-/*
---State nedir ?
-  *state componentin hafızasıdır
-  *state güncellendiğinde component tekrar render edilir
-  *local değişkenleri korur
+
+function App() {
+
+  // State tanımlaması
+  const [index, setIndex] = useState(0);
+  const [showMore,setShowMore]=useState(false);
+
+  // "ileri" fonksiyonu
+  function ileri() {
+    if (index < sculptureList.length - 1) {     
+      setIndex(index + 1); // Index'i artır
+    }
+    else{
+      setIndex(0);
+    }
+  }
+
+  // "geri" fonksiyonu
+  function geri() {
+    if (index > 0) {
+      setIndex(index - 1); // Index'i azalt
+    }
+    else{
+      setIndex(sculptureList.length-1);
+    }
+  }
+
+  function handleMoreClick(){
+    setShowMore(!showMore);
+  }
 
 
+  // sculpture veri bağlantısı
+  const sculpture = sculptureList[index];
 
---State Yöntemleri
-  *useState() => Hooks
-  *UseReducer()
-  *ContextAPI
-  *React Redux
-  *-use ile başlayan metotlar
+  return (
+    <>
+      <button onClick={ileri}>İleri</button>
+      <button onClick={geri}>Geri</button>
 
-*/
-//#endregion
-
-
-
-function App(){
-
-  //#region  Değişkenler
-    let index=3;
-    let sculpture=sculptureList[index];
-
-  //#endregion
-
-
-function ileri(){
-  index=index+1;
+      <h2>
+        <i>{sculpture.name}</i> by {sculpture.artist}
+      </h2>
+      <h3>
+        ({index + 1} of {sculptureList.length})
+      </h3>
+      <img src={sculpture.url} alt={sculpture.alt} />
+      <button onClick={handleMoreClick}>show details</button>
+      {showMore && <p>{sculpture.description}</p>}
+    </>
+  );
 }
 
-function geri(e){
-  console.log(e);
-}
-
-
-return(
-
-<>
-<button onClick={ileri}>İleri</button>
-<button onClick={geri}>Geri</button>
-
-<h2>
-
-  <i>{sculpture.name}</i> by {sculpture.artist}
-</h2>
-<h3>
-  ({index+1} of {sculptureList.length})
-</h3>
-<img src={sculpture.url} alt={sculpture.alt} />
-<p>{sculpture.description}</p>
-
-</>
-
-)
-
-
-
-
-
-
-
-}
-
-
-export default App
+export default App;
