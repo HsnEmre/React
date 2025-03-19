@@ -1,5 +1,22 @@
 import { sculptureList } from './data.js';
+//#region 
+/*
+--State nedir ?
+  *state componentin hafızasıdır
+  *state güncellendiğinde component tekrar render edilir
+  *local değişkenleri korur
 
+
+
+--State Yöntemleri
+  *useState() => Hooks
+  *UseReducer()
+  *ContextAPI
+  *React Redux
+  *-use ile başlayan metotlar
+
+*/
+//#endregion
 
 
 
